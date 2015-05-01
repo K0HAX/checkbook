@@ -58,6 +58,17 @@ int main(int argc, char *argv[])
             printf("Done\n");
         }
 
+        if(strcmp(command_ret, "help") == 0)
+        {
+            printf("Command list\n");
+            printf("------------\n");
+            printf("help - You are here!\n");
+            printf("l, login - Log in to your checkbook\n");
+            printf("d, deposit - Enter a deposit\n");
+            printf("w, withdrawal - Enter a withdrawal\n");
+            printf("q, quit - Quit the program\n");
+            printf("\n");
+        };
         free(command_ret);
     }
     return 0;
