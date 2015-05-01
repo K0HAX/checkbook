@@ -20,11 +20,44 @@ int main(int argc, char *argv[])
         {
             quit = 0;
         }
+        if(strcmp(command_ret, "q") == 0)
+        {
+            quit = 0;
+        }
+
         if(strcmp(command_ret, "login") == 0)
         {
             BookLogin(con);
-            printf("Logged in.\n\n");
+            printf("Logged in.\n");
         }
+        if(strcmp(command_ret, "l") == 0)
+        {
+            BookLogin(con);
+            printf("Logged in.\n");
+        }
+
+        if(strcmp(command_ret, "deposit") == 0)
+        {
+            BookDeposit(con);
+            printf("Done\n");
+        }
+        if(strcmp(command_ret, "d") == 0)
+        {
+            BookDeposit(con);
+            printf("Done\n");
+        }
+
+        if(strcmp(command_ret, "withdrawal") == 0)
+        {
+            BookWithdrawal(con);
+            printf("Done\n");
+        }
+        if(strcmp(command_ret, "w") == 0)
+        {
+            BookWithdrawal(con);
+            printf("Done\n");
+        }
+
         free(command_ret);
     }
     return 0;
