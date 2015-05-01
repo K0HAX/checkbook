@@ -221,3 +221,69 @@ int BookWithdrawal(MYSQL *con)
         return 0;
     }
 }
+
+int BookRows(MYSQL *con)
+{
+    if (mysql_query(con, "SELECT * FROM Ledger"))
+    {
+        finish_with_error(con);
+        return 1;
+    }
+
+    MYSQL_RES *result = mysql_store_result(con);
+
+    if(result == NULL)
+    {
+        finish_with_error(con);
+        return 1;
+    }
+
+    int num_fields = mysql_num_fields(result);
+    MYSQL_ROW row;
+
+    while ((row = mysql_fetch_row(result)))
+    {
+        for(int i = 0; i < num_fields; i++)
+        {
+            printf("%s | ", row[i] ? row[i] : "NULL");
+        }
+        printf("\n");
+    }
+
+    mysql_free_result(result);
+    printf("\n");
+    return 0;
+}
+
+int BookBalance(MYSQL *con)
+{
+    if (mysql_query(con, "SELECT sum(Amount) FROM Ledger"))
+    {
+        finish_with_error(con);
+        return 1;
+    }
+
+    MYSQL_RES *result = mysql_store_result(con);
+
+    if(result == NULL)
+    {
+        finish_with_error(con);
+        return 1;
+    }
+
+    int num_fields = mysql_num_fields(result);
+    MYSQL_ROW row;
+    while ((row = mysql_fetch_row(result)))
+    {
+        for(int i = 0; i < num_fields; i++)
+        {
+            printf("Balance: %s", row[i] ? row[i] : "NULL");
+        }
+        printf("\n");
+    }
+
+    mysql_free_result(result);
+    printf("\n");
+    return 0;
+}
+

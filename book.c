@@ -58,6 +58,23 @@ int main(int argc, char *argv[])
             printf("Done\n");
         }
 
+        if(strcmp(command_ret, "list") == 0)
+        {
+            BookRows(con);
+            printf("Done\n");
+        }
+
+        if(strcmp(command_ret, "balance") == 0)
+        {
+            BookBalance(con);
+            printf("Done\n");
+        }
+        if(strcmp(command_ret, "b") == 0)
+        {
+            BookBalance(con);
+            printf("Done\n");
+        }
+
         if(strcmp(command_ret, "help") == 0)
         {
             printf("Command list\n");
@@ -66,6 +83,8 @@ int main(int argc, char *argv[])
             printf("l, login - Log in to your checkbook\n");
             printf("d, deposit - Enter a deposit\n");
             printf("w, withdrawal - Enter a withdrawal\n");
+            printf("list - List transactions\n");
+            printf("b, balance = Current Balance\n");
             printf("q, quit - Quit the program\n");
             printf("\n");
         };
