@@ -82,9 +82,9 @@ char *getPass()
 
 void finish_with_error(MYSQL *con)
 {
-        fprintf(stderr, "%s\n", mysql_error(con));
-            mysql_close(con);
-                exit(1);
+    fprintf(stderr, "%s\n", mysql_error(con));
+    mysql_close(con);
+    exit(1);
 }
 
 int BookLogin(MYSQL *con)
@@ -97,7 +97,7 @@ int BookLogin(MYSQL *con)
     printf("username");
     command_username = command();
     printf("password");
-    
+
     command_password = getPass();
 
     printf("hostname");
@@ -255,12 +255,21 @@ int BookRows(MYSQL *con)
     return 0;
 }
 
-int BookBalance(MYSQL *con)
+int BookBalance(MYSQL *con, int available)
 {
-    if (mysql_query(con, "SELECT sum(Amount) FROM Ledger"))
+    if(available == 1)
     {
-        finish_with_error(con);
-        return 1;
+        if (mysql_query(con, "SELECT sum(Amount) FROM Ledger"))
+        {
+            finish_with_error(con);
+            return 1;
+        }
+    } else {
+        if (mysql_query(con, "SELECT sum(Amount) FROM Ledger WHERE checked=1"))
+        {
+            finish_with_error(con);
+            return 1;
+        }
     }
 
     MYSQL_RES *result = mysql_store_result(con);
@@ -287,3 +296,34 @@ int BookBalance(MYSQL *con)
     return 0;
 }
 
+int BookEdit(MYSQL *con)
+{
+    char *id;
+    char *field;
+    char *value;
+    printf("Row ID");
+    id = command();
+    printf("Field Name");
+    field = command();
+    printf("New value");
+    value = command();
+
+    char query[512];
+    query[0] = '\0';
+    strcat(query, "UPDATE Ledger SET ");
+    strcat(query, field);
+    strcat(query, " = '");
+    strcat(query, value);
+    strcat(query, "' WHERE id = ");
+    strcat(query, id);
+    strcat(query, ";");
+    if (mysql_query(con, query))
+    {
+        finish_with_error(con);
+        return 1;
+    }
+    free(id);
+    free(field);
+    free(value);
+    return 0;
+}

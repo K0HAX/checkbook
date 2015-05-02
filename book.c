@@ -66,12 +66,45 @@ int main(int argc, char *argv[])
 
         if(strcmp(command_ret, "balance") == 0)
         {
-            BookBalance(con);
+            char *tmp;
+            printf("Available Balance? ([y]/n)");
+            tmp = command();
+            if(strcmp(tmp, "n") == 0)
+            {
+                BookBalance(con, 0);
+            }
+            else
+            {
+                BookBalance(con, 1);
+            }
+            free(tmp);
             printf("Done\n");
         }
         if(strcmp(command_ret, "b") == 0)
         {
-            BookBalance(con);
+            char *tmp;
+            printf("Available Balance? ([y]/n)");
+            tmp = command();
+            if(strcmp(tmp, "n") == 0)
+            {
+                BookBalance(con, 0);
+            }
+            else
+            {
+                BookBalance(con, 1);
+            }
+            free(tmp);
+            printf("Done\n");
+        }
+
+        if(strcmp(command_ret, "edit") == 0)
+        {
+            BookEdit(con);
+            printf("Done\n");
+        }
+        if(strcmp(command_ret, "e") == 0)
+        {
+            BookEdit(con);
             printf("Done\n");
         }
 
@@ -84,6 +117,7 @@ int main(int argc, char *argv[])
             printf("d, deposit - Enter a deposit\n");
             printf("w, withdrawal - Enter a withdrawal\n");
             printf("list - List transactions\n");
+            printf("e,edit - Edit transaction\n");
             printf("b, balance = Current Balance\n");
             printf("q, quit - Quit the program\n");
             printf("\n");

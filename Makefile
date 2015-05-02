@@ -1,15 +1,15 @@
 all:
-	gcc -O2 -Wall -std=gnu11 -c -fpic -I/usr/include/mysql -L/usr/lib/x86_64-linux-gnu -lmysqlclient CommandParser.c -o CommandParser.o
+	gcc -O2 -Wall -std=gnu99 -c -fpic `mysql_config --cflags --libs` CommandParser.c -o CommandParser.o
 	ar rcs libCommandParser.a CommandParser.o
-	gcc book.c -O2 -Wall -fpic -L. -I/usr/include/mysql -L/usr/lib/x86_64-linux-gnu -lmysqlclient -lCommandParser -o book
+	gcc book.c -O2 -Wall -fpic -L. `mysql_config --cflags --libs` -lCommandParser -o book
 	rm *.o *.a
 
 asm:
-	gcc -O2 -Wall -std=gnu11 -c -fpic -I/usr/include/mysql -L/usr/lib/x86_64-linux-gnu -lmysqlclient CommandParser.c -o CommandParser.o
-	gcc -S -O2 -Wall -std=gnu11 -c -fpic -I/usr/include/mysql -L/usr/lib/x86_64-linux-gnu -lmysqlclient CommandParser.c -o CommandParser.s
+	gcc -O2 -Wall -std=gnu99 -c -fpic `mysql_config --cflags --libs` CommandParser.c -o CommandParser.o
+	gcc -S -O2 -Wall -std=gnu99 -c -fpic `mysql_config --cflags --libs` CommandParser.c -o CommandParser.s
 	ar rcs libCommandParser.a CommandParser.o
-	gcc book.c -O2 -Wall -fpic -L. -I/usr/include/mysql -L/usr/lib/x86_64-linux-gnu -lmysqlclient -lCommandParser -o book
-	gcc book.c -O2 -Wall -fpic -S -L. -I/usr/include/mysql -L/usr/lib/x86_64-linux-gnu -lmysqlclient -lCommandParser -o book.s
+	gcc book.c -O2 -Wall -fpic -L. `mysql_config --cflags --libs` -lCommandParser -o book
+	gcc book.c -O2 -Wall -fpic -S -L. `mysql_config --cflags --libs` -lCommandParser -o book.s
 	rm *.o *.a
 
 clean:

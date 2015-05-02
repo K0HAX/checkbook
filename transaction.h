@@ -4,8 +4,7 @@ struct BnkTransaction {
 	char *Code;
 	char *Date;
 	char *Description;
-	float Withdrawal;
-	float Credit;
+	float Amount;
 	int Checked;
 };
 #endif
